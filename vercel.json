@@ -3,6 +3,7 @@
   "rewrites": [
     { "source": "/api/bootstrap", "destination": "https://cnqyxhazmctvboxaosut.supabase.co/functions/v1/yes-sports-app-holo" },
     { "source": "/api/brain", "destination": "https://cnqyxhazmctvboxaosut.supabase.co/functions/v1/yes-history-echo-public" },
+    { "source": "/", "destination": "https://yes-td-vortex.jessicasalasr209.chatgpt.site/" },
     { "source": "/:path*", "destination": "https://yes-td-vortex.jessicasalasr209.chatgpt.site/:path*" }
   ],
   "headers": [
