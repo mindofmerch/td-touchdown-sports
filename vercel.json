@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "rewrites": [
+    { "source": "/api/bootstrap", "destination": "https://cnqyxhazmctvboxaosut.supabase.co/functions/v1/yes-sports-app-holo" },
+    { "source": "/api/brain", "destination": "https://cnqyxhazmctvboxaosut.supabase.co/functions/v1/yes-history-echo-public" },
+    { "source": "/:path*", "destination": "https://yes-td-vortex.jessicasalasr209.chatgpt.site/:path*" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-store, max-age=0" },
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "X-Frame-Options", "value": "DENY" }
+      ]
+    }
+  ]
+}
