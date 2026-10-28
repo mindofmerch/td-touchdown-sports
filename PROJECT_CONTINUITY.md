@@ -1,67 +1,43 @@
 # TD Touchdown Sports — project continuity
 
-Reconciled against the connected GitHub, Vercel, Sites, and Supabase sources on 2026-10-28 UTC. This file records architecture and status; it does not contain database rows, API keys, or sync credentials.
+Reconciled against GitHub, Vercel, Sites, and Supabase on 2026-10-28 05:01 UTC. This record contains no database rows, API keys, or sync credentials.
 
 ## Current deployment map
 
-- GitHub source repo: `https://github.com/mindofmerch/td-touchdown-sports` (private).
-- Vercel production app: `https://yes-sports-anomaly-lab.vercel.app/` (project `yes-sports-anomaly-lab`).
-- Published arena Site: `https://yes-td-vortex.jessicasalasr209.chatgpt.site/` (Y.E.S. Arena, version 46; this is the source of the established interface).
-- Supabase project: `cnqyxhazmctvboxaosut` (`us-east-2`).
-- `vercel.json` in this repository routes `/api/bootstrap` to the `yes-sports-app-holo` Edge Function, `/api/brain` to `yes-history-echo-public`, and other paths to the published arena Site. It also carries forward no-store and baseline response security headers.
-- The current Vercel production project remains separate from this new repo. Do not replace or redirect it without validating a new source deployment.
+- GitHub bridge repo: https://github.com/mindofmerch/td-touchdown-sports (public, main).
+- Vercel project: td-touchdown-sports, linked to this repo and main. Latest production deployment 0ad27fd3aed92a17180e5777d2cd7227e45585c8 is READY.
+- Public app: https://td-touchdown-sports.vercel.app/. Root serves the approved arena. /api/brain?action=health returns HTTP 200 and database=connected.
+- Published arena: https://yes-td-vortex.jessicasalasr209.chatgpt.site/. Its approved interface is preserved. The source is not yet checked into this GitHub repository; the current deployment is a bridge to the published Site.
+- Supabase project: cnqyxhazmctvboxaosut (us-east-2). The older yes-sports-anomaly-lab project remains separate and was not replaced.
+- vercel.json routes /api/bootstrap to yes-sports-app-holo, /api/brain to yes-history-echo-public, and root/wildcard paths to the arena. Baseline no-store/security headers remain set.
 
-## Historical product decisions
+## Locked product decisions
 
-- Keep the established holographic arena, Vortex, and navigation design locked. Continue backend and data-quality work without redesigning the interface.
-- Preserve the approved MATCHUP, 11V11 FIELD, VEGAS INSIDER, WHAT-IF ISLAND, PARLAY LAB, FULL SLATE, and MIX IT UP surfaces. Parlay sets support 3/5/7/10 legs with unique games per ticket.
-- Keep game identity bound across season, week, away team, home team, and request generation. All tabs must use one canonical One Brain response; reject stale responses after matchup changes.
-- Preserve measured touchdown counts, red-zone/inside-five usage, opportunity versus scoring trajectories, injury and personnel evidence, Gold Script, and pre-kickoff prediction history as separate evidence.
-- Never fabricate probabilities, quarter scores, similarity rates, market prices, or predictive advantage. Show source time separately from retrieval time and keep final predictions gated on verified data.
+- Keep the holographic arena, Vortex, and navigation design. Work on backend, data quality, and delivery without redesigning.
+- Preserve MATCHUP, 11V11 FIELD, VEGAS INSIDER, WHAT-IF ISLAND, PARLAY LAB, FULL SLATE, and MIX IT UP. Parlay sets support 3/5/7/10 legs with unique games per ticket.
+- Bind game identity to season, week, away, home, and request generation. All views use one canonical One Brain response; reject stale responses after matchup changes.
+- Keep measured TD counts, red-zone/inside-five usage, opportunity versus scoring trajectories, injury/personnel evidence, Gold Script, and pre-kickoff history distinct.
+- Never fabricate probabilities, quarter scores, similarity rates, prices, or advantage. Show source and retrieval times separately. Final predictions remain gated on verified inputs.
 
-## Verified backend snapshot
+## Live verification — 2026 Week 8 CAR at GB
 
-Supabase SQL read-only counts during this reconciliation:
+- Production health route: HTTP 200; database connected; build matchup-model-20261017.
+- Production matchup API: HTTP 200 and canonical One Brain response, but readiness is BLOCKED; final_prediction_authorized=false.
+- Blockers: SOURCE_DATA_NOT_READY, PERSONNEL_HISTORY_NOT_READY, PERSONNEL_MODEL_NOT_APPLIED. Injury evidence is connected but unapplied; final inactives and key starting groups remain unverified.
+- Structural holdout: 855 games, 8D MAE 10.79, winner accuracy 61.99%. These historical results are not a guarantee or a 9+ overall rating.
+- No common factor-rating rubric is defined yet. Do not claim a score until measurable criteria and repeatable evidence exist.
 
-- Historical NFL games: 7,383.
-- Team pregame feature rows: 17,644.
-- Game personnel snapshots: 14,766.
-- Touchdown outcome rows: 7,447.
-- Historical analog rows: 2,378.
-- One Brain runs: 6,011.
-- Postgame reviews: 107.
-- Market snapshots: 303,484.
-- Temporal game-memory rows: 51,910.
-- Research snapshots/signals/game research states: 2,382 / 10,011 / 89.
-- Prediction locks and grades: 1 / 1.
-- TD-specific research snapshots: 0.
+## Historical store and remaining work
 
-The live matchup response for 2026 Week 8, CAR at GB, was `ok` but `BLOCKED`: final prediction authorization was false because verified game input status and historical personnel readiness were missing, and the personnel scenario model was not applied. Keep this block until the inputs are verified; do not bypass it to produce a score.
+Earlier read-only Supabase counts: 7,383 games; 17,644 team pregame features; 14,766 personnel snapshots; 7,447 TD outcomes; 2,378 analogs; 6,011 One Brain runs; 107 postgame reviews; 303,484 market snapshots; 51,910 temporal-memory rows; 2,382 research snapshots; 10,011 research signals; 89 game research states; 1 prediction lock / 1 grade; 8 TD publications / 0 TD research snapshots. Supabase remains the historical source of truth; these rows were not copied into GitHub.
 
-The stored walk-forward structural holdout covered 855 games. Its 8-dimension track reported 10.79 points MAE and 61.99% winner accuracy; the rolling 2023–2025 holdouts ranged from 60.35% to 64.21% winner accuracy. These are evaluation records, not a 9+ overall quality rating. No composite factor-rating rubric was found.
+- Historical schedule/stats: nflverse protected feeds. Current roster identity: ESPN team roster. Weather: Open-Meteo. Target market status was reference-fresh; publishable quote provenance remains unverified.
+- Protected syncs require server-side one-time credentials. Never guess or commit them.
+- Security Advisor previously flagged RLS disabled on 16 tables in private and yes_private. Review per-table access before making policy changes; no RLS changes were applied.
+- Next: recover and version the approved arena source without visual changes; close source/personnel gates through authorized data paths; connect TD research to the canonical response; review RLS; then verify regression, mobile/accessibility, source freshness, and deployment end-to-end.
 
-## Verified source feeds and gaps
+## Historical references
 
-- Historical schedule, player/team weekly stats: nflverse release data, accessed by existing protected sync functions.
-- Current roster identity: ESPN team roster feed.
-- Weather evidence: Open-Meteo; CAR–GB response marked weather neutral.
-- Market response: reference-fresh status, but a publishable odds source and quote provenance still need to be verified.
-- The sync functions require a server-side `x-yes-sync-key`; never store or copy that value into this repository or a browser client.
-- Supabase Security Advisor currently flags 16 tables across `private` and `yes_private` as having RLS disabled. Review per-table access policies before changing RLS; do not enable it blindly.
-
-## Historical sites and references
-
-- Current arena: `https://yes-td-vortex.jessicasalasr209.chatgpt.site/`.
-- Historical Week 1 command center Site: `https://nfl-week-one-command-center.jessicasalasr209.chatgpt.site/` (reference only; do not treat it as production).
-- Earlier Vercel command-center links saved from prior work: `https://nfl-level-15-2-command-center.vercel.app/` and `https://nfl-level-11-command-center-merchs-projects-c5bf540e.vercel.app/` (historical references; current status not re-verified).
-- Model-comparison sources previously discussed: ESPN FPI, FTN/DVOA, Action Network, SportsLine, CBS simulations, and sportsbook consensus. Treat these as comparison targets until a current feed and data rights are verified.
-
-## Next work order
-
-1. Resolve verified current-game inputs, personnel history, injury/depth snapshots, and source freshness before widening prediction authorization.
-2. Improve out-of-sample calibration and retain immutable prediction locks and grades. Report sample size and uncertainty.
-3. Connect TD opportunity research snapshots, saved research, and parlay candidates to the same canonical matchup response.
-4. Review RLS and policies for the 16 flagged tables before exposing any table through the Data API.
-5. Connect this GitHub repo to Vercel only after the account grants the Vercel GitHub integration access to this private repository.
-
-The Supabase database remains the historical data store; this document records its measured state and routing, not a copy of its records.
+- Week 1 reference Site: https://nfl-week-one-command-center.jessicasalasr209.chatgpt.site/ (not production).
+- Historical Vercel command centers: https://nfl-level-15-2-command-center.vercel.app/ and https://nfl-level-11-command-center-merchs-projects-c5bf540e.vercel.app/ (not re-verified).
+- ESPN FPI, FTN/DVOA, Action Network, SportsLine, CBS simulations, and sportsbook consensus are comparison targets until current sources and rights are verified.
